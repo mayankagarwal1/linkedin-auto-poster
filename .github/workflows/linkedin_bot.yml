@@ -10,6 +10,10 @@ on:
     - cron: '0 13 * * *'  # 06:30 PM IST
   workflow_dispatch:      # This allows you to trigger it manually via a button in GitHub
 
+# This silences the Node 20 deprecation warning
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   post-to-linkedin:
     runs-on: ubuntu-latest
@@ -26,9 +30,9 @@ jobs:
           cache-dependency-glob: "requirements.txt"
 
       - name: Install dependencies with uv
-          run: |
-            uv venv
-            uv pip install -r requirements.txt
+        run: |
+          uv venv
+          uv pip install -r requirements.txt
 
       - name: Run the Agent
         env:
