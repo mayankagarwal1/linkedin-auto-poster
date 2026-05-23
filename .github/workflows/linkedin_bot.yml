@@ -25,13 +25,13 @@ jobs:
       - name: Install uv and set up Python
         uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.11" # Specify your Python version here
+          python-version: "3.12" # Bumped version to match your pyproject.toml
           enable-cache: true
           cache-dependency-glob: "requirements.txt"
 
       - name: Install dependencies with uv
         run: |
-          uv venv
+          uv venv --clear
           uv pip install -r requirements.txt
 
       - name: Run the Agent
