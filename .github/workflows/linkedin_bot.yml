@@ -26,8 +26,9 @@ jobs:
           cache-dependency-glob: "requirements.txt"
 
       - name: Install dependencies with uv
-        # --system installs packages into the global Python environment created by setup-uv
-        run: uv pip install --system -r requirements.txt
+          run: |
+            uv venv
+            uv pip install -r requirements.txt
 
       - name: Run the Agent
         env:
@@ -35,4 +36,4 @@ jobs:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_ID: ${{ secrets.LINKEDIN_PERSON_ID }}
-        run: python run.py
+        run: uv run python run.py
