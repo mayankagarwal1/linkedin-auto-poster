@@ -2,15 +2,13 @@ name: LinkedIn Automated Agent
 
 on:
   schedule:
-    # GitHub uses UTC time. These correspond to your IST schedule.
     - cron: '0 3 * * *'   # 08:30 AM IST
     - cron: '0 5 * * *'   # 10:30 AM IST
     - cron: '30 7 * * *'  # 01:00 PM IST
     - cron: '30 10 * * *' # 04:00 PM IST
     - cron: '0 13 * * *'  # 06:30 PM IST
-  workflow_dispatch:      # This allows you to trigger it manually via a button in GitHub
+  workflow_dispatch:
 
-# This silences the Node 20 deprecation warning
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -25,7 +23,7 @@ jobs:
       - name: Install uv and set up Python
         uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12" # Bumped version to match your pyproject.toml
+          python-version: "3.14" # Fixed to match your local pyproject.toml
           enable-cache: true
           cache-dependency-glob: "requirements.txt"
 
