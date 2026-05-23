@@ -1,0 +1,38 @@
+name: LinkedIn Automated Agent
+
+on:
+  schedule:
+    # GitHub uses UTC time. These correspond to your IST schedule.
+    - cron: '0 3 * * *'   # 08:30 AM IST
+    - cron: '0 5 * * *'   # 10:30 AM IST
+    - cron: '30 7 * * *'  # 01:00 PM IST
+    - cron: '30 10 * * *' # 04:00 PM IST
+    - cron: '0 13 * * *'  # 06:30 PM IST
+  workflow_dispatch:      # This allows you to trigger it manually via a button in GitHub
+
+jobs:
+  post-to-linkedin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv and set up Python
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.11" # Specify your Python version here
+          enable-cache: true
+          cache-dependency-glob: "requirements.txt"
+
+      - name: Install dependencies with uv
+        # --system installs packages into the global Python environment created by setup-uv
+        run: uv pip install --system -r requirements.txt
+
+      - name: Run the Agent
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_ID: ${{ secrets.LINKEDIN_PERSON_ID }}
+        run: python run.py
