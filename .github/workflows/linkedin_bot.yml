@@ -4,10 +4,10 @@ on:
   schedule:
     # Shifted to off-peak minutes (e.g., :17, :43)
     - cron: '17 3 * * *'  # Target: ~08:47 AM IST
-    - cron: '43 4 * * *'  # Target: ~10:13 AM IST
-    - cron: '11 7 * * *'  # Target: ~12:41 PM IST
-    - cron: '37 10 * * *' # Target: ~04:07 PM IST
-    - cron: '13 13 * * *' # Target: ~06:43 PM IST
+    - cron: '43 15 * * *'  # Target: ~09:13 PM IST
+    - cron: '13 18 * * *' # Target: ~11:43 PM IST
+    - cron: '11 20 * * *'  # Target: ~01:41 AM IST
+    - cron: '37  22 * * *' # Target: ~04:07 AM IST
   workflow_dispatch:
 
 env:
